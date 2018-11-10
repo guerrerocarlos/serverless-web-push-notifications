@@ -1,0 +1,50 @@
+service: serverless-web-push # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  environment:
+    DOMAIN: https://remittir.com/ # no need to change this domain for testing it
+    VAPID_PUBLIC_KEY: BLpTsaEAy-BGQnkZ1DeFYYNS6EH1gWP-cP49n9NmbWtjkSVMJQjj-wVI0tapfsK7Ju9r0VQz7jpE9kf8BETAdns
+    VAPID_PRIVATE_KEY: LtWhacMtRs63fhABUUMLOynMRTKTffIf7oQuRpwChFc
+
+functions:
+  vapidPublicKey:
+    handler: handler.vapidPublicKey
+    events: 
+      - http:
+          path: vapidPublicKey
+          method: get
+
+  sendNotification:
+    handler: handler.sendNotification
+    events: 
+      - http:
+          path: sendNotification
+          method: post
+
+  registerOrSendToAll:
+    handler: handler.registerOrSendToAll
+    events: 
+      - http:
+          path: register
+          method: post
+      - http:
+          path: sendToAll
+          method: post
+
+  statics:
+    handler: handler.statics
+    events: 
+      - http:
+          path: index.html
+          method: get
+      - http:
+          path: index.js
+          method: get
+      - http:
+          path: service-worker.js
+          method: get
+

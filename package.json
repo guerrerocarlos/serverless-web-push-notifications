@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mime-types": "^2.1.21",
+    "web-push": "^3.3.3"
+  }
+}
